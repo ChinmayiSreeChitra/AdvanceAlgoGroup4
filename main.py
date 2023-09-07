@@ -14,6 +14,7 @@ sorting_algorithms[2].func.sort([1,2,3,4,5])
 class SortingAlgorithm:
 
     def sort(self, array):
+        print('Sorting Algorithm')
         pass
 
 
