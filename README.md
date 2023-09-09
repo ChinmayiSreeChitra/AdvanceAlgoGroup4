@@ -51,10 +51,11 @@ git push origin <branch-name>
 
 10. When your changes are merged and you are going to make new changes `YOU MUST FOLLOW BELOW STEPS`
 
-11. Rebase your branch to master branch before making new changes
+11. Rebase your branch to main branch before making new changes
 ```bash
-git pull origin master
-git rebase master
+git pull origin main
+git rebase main
 ```
+
 
 
