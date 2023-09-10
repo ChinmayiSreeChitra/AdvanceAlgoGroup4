@@ -13,8 +13,8 @@ class InsertionSort(SortingAlgorithm):
         for i in range(1, len(array)):
             j = i
             while j > 0 and array[j] < array[j-1]:
-                array[i], array[j] = array[j], array[i]
-                j += 1
+                array[j], array[j-1] = array[j-1], array[j]
+                j -= 1
         return array
     
 
@@ -27,23 +27,22 @@ class BubbleSort(SortingAlgorithm):
         while not isSorted:
             isSorted = True
             for i in range(len(array)-1 - counter): # to stop checking the last number
-                if array[i] > array[i+1]:
-                    array[i], array[j] = array[j], array[i]
+                if array[i] > array[i + 1]:
+                    array[i], array[i + 1] = array[i + 1], array[i]
                     isSorted = False
             counter += 1
         return array
 
 # O(n log(n)) time | O(log(n)) space
 class QuickSort(SortingAlgorithm):
-    
     def sort(self, array):
-        self.quickSortHelper(self, array, 0 ,len(array)-1)
+        QuickSort.quickSortHelper(array, 0 ,len(array) - 1)
         return array
     
     def swap(i, j, array):
         array[i], array[j] = array[j], array[i]
     
-    def quickSortHelper(self, array, startIdx, endIdx):
+    def quickSortHelper(array, startIdx, endIdx):
         if startIdx >= endIdx:
             return
         pivotIdx = startIdx
@@ -51,36 +50,36 @@ class QuickSort(SortingAlgorithm):
         rightIdx = endIdx
         while rightIdx >= leftIdx:
             if array[leftIdx] > array[pivotIdx] and array[rightIdx] < array[pivotIdx]:
-                self.swap(leftIdx, rightIdx, array)
+                QuickSort.swap(leftIdx, rightIdx, array)
             if array[leftIdx] <= array[pivotIdx]:
                 leftIdx += 1
             if array[rightIdx] >= array[pivotIdx]:
-                rightIdx += 1
-            self.swap(pivotIdx, rightIdx, array)
+                rightIdx -= 1
+            QuickSort.swap(pivotIdx, rightIdx, array)
         leftSubarraySmaller = rightIdx - 1 - startIdx < endIdx - (rightIdx + 1)
         if leftSubarraySmaller:
-            self.quickSortHelper(array, startIdx, rightIdx - 1)
-            self.quickSortHelper(array, rightIdx + 1, endIdx)
+            QuickSort.quickSortHelper(array, startIdx, rightIdx - 1)
+            QuickSort.quickSortHelper(array, rightIdx + 1, endIdx)
         else:
-            self.quickSortHelper(array, rightIdx + 1, endIdx)
-            self.quickSortHelper(array, startIdx, rightIdx + 1)
+            QuickSort.quickSortHelper(array, rightIdx + 1, endIdx)
+            QuickSort.quickSortHelper(array, startIdx, rightIdx - 1)
 
 # O(n log(n)) time | O(n) space
-def MergeSort(SortingAlgorithm):
+class MergeSort(SortingAlgorithm):
     def sort(self, array):
         if len(array) <= 1:
             return array
         auxiliaryArray = array[:]
-        mergeSortHelper(array, 0, len(array) - 1, auxiliaryArray)
+        MergeSort.mergeSortHelper(array, 0, len(array) - 1, auxiliaryArray)
         return array
     
     def mergeSortHelper(mainArray, startIdx, endIdx, auxiliaryArray):
         if startIdx == endIdx:
             return
         middleIdx = (startIdx + endIdx) // 2
-        mergeSortHelper(auxiliaryArray, startIdx, middleIdx, mainArray)
-        mergeSortHelper(auxiliaryArray, middleIdx + 1, endIdx, mainArray)
-        doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray)
+        MergeSort.mergeSortHelper(auxiliaryArray, startIdx, middleIdx, mainArray)
+        MergeSort.mergeSortHelper(auxiliaryArray, middleIdx + 1, endIdx, mainArray)
+        MergeSort.doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray)
 
     def doMerge(mainArray, startIdx, middleIdx, endIdx, auxiliaryArray):
         k = startIdx
