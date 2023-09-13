@@ -4,7 +4,7 @@ import tkinter as tk
 from tkinter import ttk
 import statistics
 import time
-
+import math
 
 class SortingAlgorithm:
     def swap(self, i, j, array):
@@ -208,6 +208,19 @@ class RadixSort(SortingAlgorithm):
 
         return [num for bucket in buckets for num in bucket]
 
+class RadixSort:
+    def sort(self, array):
+        start_time = time.time()
+        max_value = max(array, key=abs)
+        num_digits = int(math.log10(abs(max_value))) + 1 if max_value != 0 else 1
+
+        for digit_place in range(num_digits):
+            counting_sort = CountingSort()
+            sorted_array, _ = counting_sort.sort(array)
+            array = sorted_array
+
+        end_time = time.time()
+        return array, end_time - start_time
 
 def measure_efficiency(sorting_algorithm, input_array):
     sorted_array, execution_time = sorting_algorithm.sort(input_array.copy())
