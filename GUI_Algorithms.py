@@ -184,30 +184,6 @@ class SelectionSort(SortingAlgorithm):
         end_time = time.time()
         return array, end_time - start_time
 
-class RadixSort(SortingAlgorithm):
-    def sort(self, array):
-        start_time = time.time()
-        max_value = max(array)
-        num_digits = len(str(max_value))
-        # Perform the radix sort
-        array = self.radix_sort(array, num_digits)
-        end_time = time.time()
-        return array, end_time - start_time
-
-    def radix_sort(self, array, num_digits):
-        for digit_place in range(num_digits):
-            array = self.distribute_elements(array, digit_place)
-        return array
-
-    def distribute_elements(self, array, digit_place):
-        buckets = [[] for _ in range(10)]
-
-        for num in array:
-            digit = (num // (10 ** digit_place)) % 10
-            buckets[digit].append(num)
-
-        return [num for bucket in buckets for num in bucket]
-
 class RadixSort:
     def sort(self, array):
         start_time = time.time()
