@@ -184,7 +184,7 @@ class SelectionSort(SortingAlgorithm):
         end_time = time.time()
         return array, end_time - start_time
 
-class RadixSort:
+class RadixSort(SortingAlgorithm):
     def sort(self, array):
         start_time = time.time()
         max_value = max(array, key=abs)
