@@ -211,7 +211,8 @@ class RadixSort(SortingAlgorithm):
 
 
 def measure_efficiency(sorting_algorithm, input_array):
-    sorted_array, execution_time = sorting_algorithm.sort(input_array.copy())
+    sorted_array, execution_time0 = sorting_algorithm.sort(input_array.copy())
+    execution_time = f"{execution_time0:.6f}"
     return sorted_array, execution_time
 
 
@@ -246,7 +247,7 @@ def sort_button_clicked():
     
     # Update the result labels to display the sorted array and execution time
     result_label.config(text=f"Sorted Array: {sorted_array}")
-    time_label.config(text=f"Execution Time: {execution_time:.6f} seconds")
+    time_label.config(text=f"Execution Time: {execution_time} seconds")
 
 def view_visualization():
     input_str = input_entry.get()

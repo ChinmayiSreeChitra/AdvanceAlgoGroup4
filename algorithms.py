@@ -13,19 +13,19 @@ class SortingAlgorithm:
 
 class InsertionSort(SortingAlgorithm):
     def sort(self, array):
-        start_time = time.time()
+        start_time = time.perf_counter()
         for i in range(1, len(array)):
             j = i
             while j > 0 and array[j] < array[j - 1]:
                 self.swap(j, j - 1, array)
                 j -= 1
-        end_time = time.time()
+        end_time = time.perf_counter()
         return array, end_time - start_time
 
 
 class BubbleSort(SortingAlgorithm):
     def sort(self, array):
-        start_time = time.time()
+        start_time = time.perf_counter()
         isSorted = False
         counter = 0
         while not isSorted:
@@ -35,15 +35,15 @@ class BubbleSort(SortingAlgorithm):
                     self.swap(i, i + 1, array)
                     isSorted = False
             counter += 1
-        end_time = time.time()
+        end_time = time.perf_counter()
         return array, end_time - start_time
 
 
 class QuickSort(SortingAlgorithm):
     def sort(self, array):
-        start_time = time.time()
+        start_time = time.perf_counter()
         self.quickSortHelper(array, 0, len(array) - 1)
-        end_time = time.time()
+        end_time = time.perf_counter()
         return array, end_time - start_time
 
     def quickSortHelper(self, array, startIdx, endIdx):
@@ -71,12 +71,12 @@ class QuickSort(SortingAlgorithm):
 
 class MergeSort(SortingAlgorithm):
     def sort(self, array):
-        start_time = time.time()
+        start_time = time.perf_counter()
         if len(array) <= 1:
             return array, 0.0
         auxiliaryArray = array[:]
         self.mergeSortHelper(array, 0, len(array) - 1, auxiliaryArray)
-        end_time = time.time()
+        end_time = time.perf_counter()
         return array, end_time - start_time
 
     def mergeSortHelper(self, mainArray, startIdx, endIdx, auxiliaryArray):
@@ -111,7 +111,7 @@ class MergeSort(SortingAlgorithm):
 
 class CountingSort(SortingAlgorithm):
     def sort(self, array):
-        start_time = time.time()
+        start_time = time.perf_counter()
         max_value = max(array)
         min_value = min(array)
         range_of_elements = max_value - min_value + 1
@@ -131,18 +131,18 @@ class CountingSort(SortingAlgorithm):
         for i in range(len(array)):
             array[i] = output_array[i]
 
-        end_time = time.time()
+        end_time = time.perf_counter()
         return array, end_time - start_time
 
 
 class HeapSort(SortingAlgorithm):
     def sort(self, array):
-        start_time = time.time()
+        start_time = time.perf_counter()
         self.build_max_heap(array)
         for i in range(len(array) - 1, 0, -1):
             self.swap(0, i, array)
             self.max_heap(array, index=0, size=i)
-        end_time = time.time()
+        end_time = time.perf_counter()
         return array, end_time - start_time
 
     def build_max_heap(self, array):
@@ -174,21 +174,21 @@ class SelectionSort(SortingAlgorithm):
         return min_index
 
     def sort(self, array):
-        start_time = time.time()
+        start_time = time.perf_counter()
         for i in range(len(array)):
             min_index = self.find_min_index(array, i)
             self.swap(i, min_index, array)
-        end_time = time.time()
+        end_time = time.perf_counter()
         return array, end_time - start_time
 
 class RadixSort(SortingAlgorithm):
     def sort(self, array):
-        start_time = time.time()
+        start_time = time.perf_counter()
         max_value = max(array)
         num_digits = len(str(max_value))
         # Perform the radix sort
         array = self.radix_sort(array, num_digits)
-        end_time = time.time()
+        end_time = time.perf_counter()
         return array, end_time - start_time
 
     def radix_sort(self, array, num_digits):
@@ -207,7 +207,8 @@ class RadixSort(SortingAlgorithm):
 
 
 def measure_efficiency(sorting_algorithm, input_array):
-    sorted_array, execution_time = sorting_algorithm.sort(input_array.copy())
+    sorted_array, execution_time0 = sorting_algorithm.sort(input_array.copy())
+    execution_time = f"{execution_time0:.6f}"
     return sorted_array, execution_time
 
 
